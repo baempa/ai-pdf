@@ -13,7 +13,6 @@ import tempfile
 import os
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 
-
 #제목
 st.title("ChatPDF")
 st.write("---")
@@ -71,7 +70,7 @@ if uploaded_file is not None:
     if st.button('질문하기'):
         with st.spinner('Wait for it...'):
             chat_box = st.empty()
-            stream_hander = StreamHandler(chat_box)
-            llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0, openai_api_key=openai_key, streaming=True, callbacks=[stream_hander])
-            qa_chain = RetrievalQA.from_chain_type(llm,retriever=db.as_retriever())
+            stream_handler = StreamHandler(chat_box)
+            llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0, openai_api_key=openai_key, streaming=True, callbacks=[stream_handler])
+            qa_chain = RetrievalQA.from_chain_type(llm, retriever=db.as_retriever())
             qa_chain({"query": question})
